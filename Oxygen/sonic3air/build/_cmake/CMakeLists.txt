@@ -12,7 +12,7 @@ project(Sonic3AIR)
 # Build options
 option(BUILD_OXYGEN_ENGINEAPP "Build the Oxygen App executable" ON)
 option(BUILD_OXYGEN_SERVER "Build the Oxygen server executable" OFF)
-option(BUILD_SDL_STATIC "Build SDL as a static library instead of a shared / dynamic one" ON)
+option(BUILD_SDL_STATIC "Build SDL as a static library instead of a shared / dynamic one" OFF)
 option(USE_GLES "Use OpenGLESv2" OFF)
 option(USE_DISCORD "Use Discord API" ON)
 option(USE_IMGUI "Use ImGui, required for dev mode and system windows" ON)

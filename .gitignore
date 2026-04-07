@@ -98,3 +98,9 @@ framework/external/ogg-vorbis/libvorbis/xcode/vorbis.xcodeproj/xcuserdata
 Oxygen/sonic3air/build/_xcode/build/XCBuildData
 Oxygen/sonic3air/build/_xcode/build/sonic3air.build
 framework/external/sdl/SDL2/Xcode/SDL/build/SDL.build
+/framework/external/sdl/SDL2/build
+/Oxygen/sonic3air/build/_cmake/build
+Oxygen/sonic3air/build/_cmake/.how-to-build.txt.kate-swp
+Oxygen/sonic3air/Sonic_Knuckles_wSonic3.bin
+Oxygen/sonic3air/sonic3air_linux
+Oxygen/oxygenengine/oxygenapp_linux

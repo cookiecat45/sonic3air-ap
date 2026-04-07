@@ -1,0 +1,4 @@
+[submodule "apclientpp"]
+	path = apclientpp
+	url = https://github.com/black-sliver/apclientpp
+	branch = main

@@ -101,6 +101,7 @@ void Game::update(float timeElapsed)
 	// Update game client
 	mGameClient.updateClient(timeElapsed);
 	mCrowdControlClient.updateConnection(timeElapsed);
+	mArchipelagoClient.updateConnection(timeElapsed);
 
 	// Update sprite redirects (like input icons)
 	mDynamicSprites.updateSpriteRedirects();
@@ -238,7 +239,20 @@ void Game::registerScriptBindings(lemon::Module& module)
 		builder.addNativeFunction("CrowdControl.sendResponse", lemon::wrap(mCrowdControlClient, &CrowdControlClient::sendResponse), defaultFlags)
 			.setParameters("id", "status", "message");
 	}
-
+	
+	// Archipelago
+	{
+		builder.addNativeFunction("Archipelago.sendResponse", 
+			lemon::wrap(mArchipelagoClient, &ArchipelagoClient::sendResponse), defaultFlags)
+		.setParameters("message");
+		
+		builder.addNativeFunction("Archipelago.startConnection",
+			lemon::wrap(mArchipelagoClient, &ArchipelagoClient::startConnection), defaultFlags);
+			
+		builder.addNativeFunction("Archipelago.isConnected",
+			lemon::wrap(mArchipelagoClient, &ArchipelagoClient::isConnected), defaultFlags);
+	}
+	
 	// Audio
 	{
 		builder.addNativeFunction("Game.setUnderwaterAudioEffect", lemon::wrap(&setUnderwaterAudioEffect), defaultFlags)

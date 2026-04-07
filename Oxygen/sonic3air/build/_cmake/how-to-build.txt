@@ -22,9 +22,9 @@ On first compilation, you need to create the build directory:
 	- mkdir ./Oxygen/sonic3air/build/_cmake/build
 
 Build with CMake:
-	- cd ./Oxygen/sonic3air/build/_cmake/build
-	- cmake -DCMAKE_BUILD_TYPE=Release ..
-	- cmake --build .
+cd ./Oxygen/sonic3air/build/_cmake/build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake --build . -j 8
 
 [Optional change]
 You can add the -j option to the last line to enable use of multiple processor cores, which speeds up the build:

@@ -11,6 +11,7 @@
 #include "sonic3air/audio/RemasteredMusicDownload.h"
 #include "sonic3air/client/GameClient.h"
 #include "sonic3air/client/crowdcontrol/CrowdControlClient.h"
+#include "sonic3air/client/archipelago/ArchipelagoClient.h"
 #include "sonic3air/data/PlayerProgress.h"
 #include "sonic3air/data/PlayerRecorder.h"
 #include "sonic3air/helper/BlueSpheresRendering.h"
@@ -139,6 +140,7 @@ private:
 	PlayerProgress mPlayerProgress;
 	PlayerRecorder mPlayerRecorder;
 	GameClient mGameClient;
+	ArchipelagoClient mArchipelagoClient;
 	CrowdControlClient mCrowdControlClient;
 	DynamicSprites mDynamicSprites;
 	RemasteredMusicDownload mRemasteredMusicDownload;
