@@ -133,6 +133,7 @@ include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/ar
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/json/include)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/websocketpp)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/asio/include)
+include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/openssl/include)
 
 # ogg vorbis
 
