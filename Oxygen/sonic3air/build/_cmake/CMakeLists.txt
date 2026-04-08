@@ -103,7 +103,7 @@ else()
 endif()
 
 add_subdirectory(${WORKSPACE_DIR}/framework/external/sdl/SDL2 SDL)
-
+add_subdirectory(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/wswrap)
 
 # zlib sources as virtual subdirectory "zlib"
 include_directories(${WORKSPACE_DIR}/framework/external/zlib/zlib)		# Included before add_subdirectory so that the examples will build
