@@ -5,9 +5,6 @@
 [submodule "wswrap"]
 	path = Oxygen/sonic3air/source/sonic3air/client/archipelago/wswrap
 	url = https://github.com/black-sliver/wswrap
-[submodule "valijson"]
-	path = Oxygen/sonic3air/source/sonic3air/client/archipelago/valijson
-	url = https://github.com/tristanpenman/valijson
 [submodule "json"]
 	path = Oxygen/sonic3air/source/sonic3air/client/archipelago/json
 	url = https://github.com/nlohmann/json

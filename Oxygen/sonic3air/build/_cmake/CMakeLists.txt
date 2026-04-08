@@ -128,13 +128,14 @@ include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/external)
 
 # archipelago
 add_definitions(-DASIO_STANDALONE)
+add_definitions(-DAP_NO_SCHEMA)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/apclientpp)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/wswrap/include)
-include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/valijson/include)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/json/include)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/websocketpp)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/asio/include)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/openssl/include)
+
 
 # ogg vorbis
 
@@ -366,6 +367,9 @@ endif()
 # Sonic3AIR
 
 file(GLOB_RECURSE SONIC3AIR_SOURCES ${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/*.cpp)
+list(FILTER SONIC3AIR_SOURCES EXCLUDE REGEX ".*/json/docs/.*")
+list(FILTER SONIC3AIR_SOURCES EXCLUDE REGEX ".*/json/tests/.*")
+list(FILTER SONIC3AIR_SOURCES EXCLUDE REGEX ".*/examples/.*")
 
 # TODO: CMake seems to use a different working directory for this, so "Oxygen" is intentionally missing here
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${WORKSPACE_DIR}/sonic3air")
@@ -386,4 +390,3 @@ target_link_libraries(Sonic3AIR oxygen)
 if (USE_DISCORD)
 	target_link_libraries(Sonic3AIR discord_game_sdk_source)
 endif()
-
