@@ -1,4 +1,4 @@
 [submodule "apclientpp"]
-	path = apclientpp
+	path = Oxygen/sonic3air/source/sonic3air/client/archipelago/apclientpp
 	url = https://github.com/black-sliver/apclientpp
 	branch = main

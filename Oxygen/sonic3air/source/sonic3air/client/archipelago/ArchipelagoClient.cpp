@@ -9,6 +9,7 @@
 #include <sys/socket.h>
 #include "sonic3air/pch.h"
 #include "sonic3air/client/archipelago/ArchipelagoClient.h"
+#include "sonic3air/client/archipelago/apclientpp/apclient.hpp"
 
 #include "oxygen/application/Application.h"
 #include "oxygen/helper/JsonHelper.h"
