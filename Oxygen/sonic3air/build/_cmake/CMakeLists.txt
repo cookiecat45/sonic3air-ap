@@ -126,7 +126,7 @@ include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/external)
 
 # archipelago
-add_definitions(-ASIO_STANDALONE)
+add_definitions(-DASIO_STANDALONE)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/apclientpp)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/wswrap/include)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/valijson/include)
