@@ -103,12 +103,10 @@ else()
 endif()
 
 add_subdirectory(${WORKSPACE_DIR}/framework/external/sdl/SDL2 SDL)
-add_subdirectory(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/wswrap)
 
 # zlib sources as virtual subdirectory "zlib"
 include_directories(${WORKSPACE_DIR}/framework/external/zlib/zlib)		# Included before add_subdirectory so that the examples will build
 add_subdirectory(${WORKSPACE_DIR}/framework/external/zlib/zlib zlib)
-
 
 
 include_directories(${WORKSPACE_DIR}/framework/external/ogg-vorbis/libogg/include)
@@ -127,7 +125,14 @@ include_directories(${WORKSPACE_DIR}/Oxygen/oxygenserver/source)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source)
 include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/external)
 
-
+# archipelago
+add_definitions(-ASIO_STANDALONE)
+include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/apclientpp)
+include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/wswrap/include)
+include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/valijson/include)
+include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/json/include)
+include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/websocketpp)
+include_directories(${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/client/archipelago/asio/include)
 
 # ogg vorbis
 

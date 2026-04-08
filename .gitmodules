@@ -8,3 +8,12 @@
 [submodule "valijson"]
 	path = Oxygen/sonic3air/source/sonic3air/client/archipelago/valijson
 	url = https://github.com/tristanpenman/valijson
+[submodule "json"]
+	path = Oxygen/sonic3air/source/sonic3air/client/archipelago/json
+	url = https://github.com/nlohmann/json
+[submodule "websocketpp"]
+	path = Oxygen/sonic3air/source/sonic3air/client/archipelago/websocketpp
+	url = https://github.com/zaphoyd/websocketpp
+[submodule "asio"]
+	path = Oxygen/sonic3air/source/sonic3air/client/archipelago/asio
+	url = https://github.com/chriskohlhoff/asio

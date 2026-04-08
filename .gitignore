@@ -104,3 +104,5 @@ Oxygen/sonic3air/build/_cmake/.how-to-build.txt.kate-swp
 Oxygen/sonic3air/Sonic_Knuckles_wSonic3.bin
 Oxygen/sonic3air/sonic3air_linux
 Oxygen/oxygenengine/oxygenapp_linux
+/build
+framework/external/zlib/zlib/zconf.h.included
