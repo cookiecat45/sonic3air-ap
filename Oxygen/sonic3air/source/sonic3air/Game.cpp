@@ -242,15 +242,15 @@ void Game::registerScriptBindings(lemon::Module& module)
 	
 	// Archipelago
 	{
-		builder.addNativeFunction("Archipelago.sendResponse", 
-			lemon::wrap(mArchipelagoClient, &ArchipelagoClient::sendResponse), defaultFlags)
-		.setParameters("message");
-		
 		builder.addNativeFunction("Archipelago.startConnection",
 			lemon::wrap(mArchipelagoClient, &ArchipelagoClient::startConnection), defaultFlags);
 			
 		builder.addNativeFunction("Archipelago.isConnected",
 			lemon::wrap(mArchipelagoClient, &ArchipelagoClient::isConnected), defaultFlags);
+			
+		builder.addNativeFunction("Archipelago.sendLocation",
+			lemon::wrap(mArchipelagoClient, &ArchipelagoClient::sendLocation), defaultFlags)
+		.setParameters("id");
 	}
 	
 	// Audio

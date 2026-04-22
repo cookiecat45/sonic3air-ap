@@ -369,7 +369,13 @@ endif()
 file(GLOB_RECURSE SONIC3AIR_SOURCES ${WORKSPACE_DIR}/Oxygen/sonic3air/source/sonic3air/*.cpp)
 list(FILTER SONIC3AIR_SOURCES EXCLUDE REGEX ".*/json/docs/.*")
 list(FILTER SONIC3AIR_SOURCES EXCLUDE REGEX ".*/json/tests/.*")
+list(FILTER SONIC3AIR_SOURCES EXCLUDE REGEX ".*/json/tools/.*")
+list(FILTER SONIC3AIR_SOURCES EXCLUDE REGEX ".*/json/cmake/.*")
 list(FILTER SONIC3AIR_SOURCES EXCLUDE REGEX ".*/examples/.*")
+list(FILTER SONIC3AIR_SOURCES EXCLUDE REGEX ".*/websocketpp/test/.*")
+list(FILTER SONIC3AIR_SOURCES EXCLUDE REGEX ".*/websocketpp/docs/.*")
+list(FILTER SONIC3AIR_SOURCES EXCLUDE REGEX ".*/apclientpp/test/.*")
+list(FILTER SONIC3AIR_SOURCES EXCLUDE REGEX ".*/websocketpp/tutorials/.*")
 
 # TODO: CMake seems to use a different working directory for this, so "Oxygen" is intentionally missing here
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${WORKSPACE_DIR}/sonic3air")
@@ -386,7 +392,8 @@ if (NOT CMAKE_VERSION VERSION_LESS "3.16.0")
 endif()
 
 target_link_libraries(Sonic3AIR Threads::Threads)
-target_link_libraries(Sonic3AIR oxygen)
+target_link_libraries(Sonic3AIR oxygen ssl crypto)
+
 if (USE_DISCORD)
 	target_link_libraries(Sonic3AIR discord_game_sdk_source)
 endif()

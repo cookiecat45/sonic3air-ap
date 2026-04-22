@@ -7,105 +7,65 @@
 */
 
 #include <sys/socket.h>
+#include <nlohmann/json.hpp>
 #include "sonic3air/pch.h"
 #include "sonic3air/client/archipelago/ArchipelagoClient.h"
-#include "sonic3air/client/archipelago/apclientpp/apclient.hpp"
-
 #include "oxygen/application/Application.h"
 #include "oxygen/helper/JsonHelper.h"
 #include "oxygen/simulation/CodeExec.h"
 #include "oxygen/simulation/LogDisplay.h"
 #include "oxygen/simulation/Simulation.h"
 
+using json = nlohmann::json;
+
 bool ArchipelagoClient::startConnection()
 {
-	if (mSetupDone)
+	if (mConnecting || isConnected())
 	{
-		// Already connected?
-		if (mSocket.isValid())
-			return true;
-		mSetupDone = false;
-	}
-
-	Sockets::startupSockets();
-	
-	if (!mSocket.connectTo("127.0.0.1", 38281))
-	{
-		LogDisplay::instance().setLogDisplay("Couldn't connect to Archipelago", 10.0f);
 		return false;
 	}
-	
-	LogDisplay::instance().setLogDisplay("Now connected to Archipelago!", 10.0f);
-	std::string request = 
-		"GET / HTTP/1.1\r\n"
-		"Host: 127.0.0.1:38281\r\n"
-		"Connection: Upgrade\r\n"
-		"Upgrade: websocket\r\n"
-		"Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\r\n"
-		"Sec-WebSocket-Version: 13\r\n"
-		"\r\n";
-	sendStr(request);
-	
-	// Done
-	mSetupDone = true;
+
+	mConnecting = true;
+	mClient.reset();
+	printf("Connecting to AP...\n");
+	mClient.reset(new APClient("", "Sonic 3 A.I.R.", "localhost:38281"));
+	setupHandlers();
 	return true;
+}
+
+void ArchipelagoClient::setupHandlers()
+{
+	mClient->set_room_info_handler([this](){
+        mClient->ConnectSlot("Player1", "", 7);
+    });
+	mClient->set_slot_connected_handler([this](const json&){
+        
+    });
 }
 
 void ArchipelagoClient::stopConnection()
 {
-	mSocket.close();
-	mSetupDone = false;
+	mClient.reset();
 }
 
 bool ArchipelagoClient::isConnected()
 {
-	/*
-	TCPSocket::ReceiveResult result;
-	bool data = mSocket.receiveNonBlocking(result);
-	if (!data || result.mBuffer.size() <= 0)
-	{
-		LogDisplay::instance().setLogDisplay("Connection was dropped", 10.0f);
-		mSetupDone = false;
-	}
-	*/
-		
-	return mSetupDone;
+	return mClient && mClient->get_state() == APClient::State::SLOT_CONNECTED;
 }
 
 void ArchipelagoClient::updateConnection(float timeElapsed)
 {
-	if (!mSetupDone)
+	if (!mClient)
 		return;
 
-	TCPSocket::ReceiveResult result;
-	if (mSocket.receiveNonBlocking(result) && !result.mBuffer.empty())
-	{
-		std::string errors;
-		Json::Value jsonRoot = rmx::JsonHelper::loadFromMemory(result.mBuffer, &errors);
-		if (jsonRoot.isObject())
-		{
-			evaluateRequestJson(jsonRoot);
-		}
-	}
+	mClient->poll();
+	APClient::State state = mClient->get_state();
+	mConnecting = (state > APClient::State::DISCONNECTED && state < APClient::State::SLOT_CONNECTED);
 }
 
-void ArchipelagoClient::sendResponse(lemon::StringRef message)
+void ArchipelagoClient::sendLocation(uint32 id)
 {
-	if (message.isEmpty())
-		return;
-	
-	std::string response = std::string(message.getString());
-	ArchipelagoClient::sendStr(response);
+	std::list<int64_t> idList;
+	idList.push_front(id);
+	mClient->LocationChecks(idList);
 }
-
-void ArchipelagoClient::sendStr(std::string msg)
-{
-	mSocket.sendData((const uint8*)msg.c_str(), msg.length() + 1);
-}
-
-void ArchipelagoClient::evaluateRequestJson(const Json::Value& requestJson)
-{
-	LogDisplay::instance().setLogDisplay("Received a message from the Archipelago server.", 8.0f);
-	JsonHelper jsonHelper(requestJson);
-}
-

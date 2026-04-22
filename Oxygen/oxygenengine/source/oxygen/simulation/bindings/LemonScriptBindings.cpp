@@ -1129,12 +1129,12 @@ namespace
 	{
 		return Application::instance().getDebugSidePanel()->isEntryHovered(key);
 	}
-
+	
 	void System_writeDisplayLine(lemon::StringRef text)
 	{
 		if (text.isValid())
 		{
-			LogDisplay::instance().setLogDisplay(text.getString(), 2.0f);
+			LogDisplay::instance().setLogDisplay(text.getString(), 6.0f);
 		}
 	}
 

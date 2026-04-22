@@ -75,9 +75,9 @@ function void fn06169a()
 {
 	if (SetupObjectAttributesSlotted(0x06198e))
 		return
-
+	
 	u32[A0 + 0x30] = 0x0619c2
-
+	
 	bool isSuperEmeraldStage = (objA0.subtype2c & 0x80) || GiantRing.isSuperEmeraldStage()		// First condition is for the first giant ring in Mushroom Hill that always leads to Hidden Palace
 	if (isSuperEmeraldStage)
 	{

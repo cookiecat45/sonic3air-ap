@@ -8,17 +8,18 @@
 
 #pragma once
 #include "oxygen_netcore/network/Sockets.h"
+#include "sonic3air/client/archipelago/apclientpp/apclient.hpp"
 #include <lemon/program/StringRef.h>
 
 class ArchipelagoClient
 {
 public:
 	bool startConnection();
+	void setupHandlers();
 	void stopConnection();
 	bool isConnected();
 	void updateConnection(float timeElapsed);
-	void sendResponse(lemon::StringRef message);
-	void sendStr(std::string msg);
+	void sendLocation(uint32 id);
 
 private:
 	enum class StatusCode : uint8
@@ -62,8 +63,8 @@ private:
 private:
 	void evaluateRequestJson(const Json::Value& requestJson);
 	void triggerEffect(const Request& request);
+	bool mConnecting = false;
 
-private:
-	bool mSetupDone = false;
-	TCPSocket mSocket;
+public:
+	std::unique_ptr<APClient> mClient;
 };

@@ -49,7 +49,7 @@ function void InitSaveSlots()
 		}
 
 		// Now overwrite it if there is persistent data to load; otherwise this has no effect
-		loadAndMigratePersistentData(0xffffe6ac, 0x50, "s3air_saveslots", "SRAM_Saveslots", false)
+		loadAndMigratePersistentData(0xffffe6ac, 0x50, "s3air_saveslots_ap", "SRAM_Saveslots", false)
 
 	/*
 		// TEST: Create 3 save slots with all Chaos Emeralds, and 3 with all Super Emeralds
@@ -117,7 +117,7 @@ function void InitSaveSlots()
 
 		// Load additional save slot data
 		zeroMemory(0x801100, 0x100)
-		loadAndMigratePersistentData(0x801100, 0x100, "s3air_saveslots", "SRAM_SaveslotsExt", false)
+		loadAndMigratePersistentData(0x801100, 0x100, "s3air_saveslots_ap", "SRAM_SaveslotsExt", false)
 	}
 
 #else
@@ -392,8 +392,8 @@ function void SaveGameSlot()
 
 	if (!invalidOrDefault)
 	{
-		System.savePersistentData(0xffffe6ac, 0x50, "s3air_saveslots", "SRAM_Saveslots", false)
-		System.savePersistentData(0x801100, 0x100, "s3air_saveslots", "SRAM_SaveslotsExt", false)
+		System.savePersistentData(0xffffe6ac, 0x50, "s3air_saveslots_ap", "SRAM_Saveslots", false)
+		System.savePersistentData(0x801100, 0x100, "s3air_saveslots_ap", "SRAM_SaveslotsExt", false)
 	}
 
 #else
