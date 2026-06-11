@@ -1,0 +1,71 @@
+// Called when collecting a giant ring
+//# address-hook(0x0616e6) end(0x06178a)
+function void fn0616e6()
+{
+	Object.AnimationProgressByLocalA1()
+	if (debug_mode.state == 0 && objA0.animation.sprite >= 8)
+	{
+		A1 = 0x06178c
+		fn0858f8()
+		if (D0.u16 != 0)
+		{
+			A1 = 0xffffb000
+			if (u8[A1 + 0x05] >= base_state.DIED)
+				return
+
+			playSound(0xb3)
+		
+		#if STANDALONE
+			Standalone.onGiantRingCollected()
+		#endif
+
+			bool enterRing = true
+			if (global.super_emeralds == 7)
+			{
+				// All 14 Emeralds collected
+				//  -> Now Giant Rings always grant 50 rings and can't be entered any more
+				enterRing = false
+			}
+			else if (global.chaos_emeralds == 7)
+			{
+				// All 7 Chaos Emeralds collected, but not all Super Emeralds yet
+				//  -> Giant Rings can only be entered in S&K half
+				//  -> However, S3AIR also allows you to enter Giant Rings in the S3 half after you've visited the HPZ emerald cave once (relevant after finishing the game in this save game slot)
+				enterRing = GiantRing.isSuperEmeraldStage()
+			}
+			
+			enterRing = false
+			LogDec = Archipelago.getObjectId_xPos()
+			Archipelago.sendLocation(Archipelago.getObjectId_xPos())
+			if (!enterRing)
+			{
+				// Do not enter the ring, but grant 50 rings
+				GiantRing.Grant50Rings()
+				return
+			}
+			
+			objA0.base_state = 0x04
+			char.animation.sprite.backup = 0xff
+
+			A1 = 0xffffb000
+			objA1.state = char.state.DISAPPEARED
+			objA1.animation.sprite = 0
+			u8[A1 + 0x2e] = (control_flag.DISABLE_WALLS | control_flag.DISABLE_ANIMATION | control_flag.DISABLE_UPDATE | 0x10)
+
+			if (tails.carrying)
+			{
+				A1 = 0xffffb04a
+				objA1.state = char.state.DISAPPEARED
+				objA1.animation.sprite = 0
+				u8[A1 + 0x2e] = (control_flag.DISABLE_WALLS | control_flag.DISABLE_ANIMATION | control_flag.DISABLE_UPDATE | 0x10)
+			}
+
+			if (allocDynamicObjectStd())
+			{
+				// Warp flash effect
+				objA1.update_address = 0x0617be
+				u16[A1 + 0x46] = A0.u16
+			}
+		}
+	}
+}

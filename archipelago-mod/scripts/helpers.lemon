@@ -1,0 +1,9 @@
+function u64 Archipelago.getZoneActIdOffset()
+{
+	return u64[((global.zone+1) * 1000) + (global.act.apparent * 500)]
+}
+
+function u64 Archipelago.getObjectId_xPos()
+{
+	return Archipelago.getZoneActIdOffset() + (objA0.position.x/100)
+}

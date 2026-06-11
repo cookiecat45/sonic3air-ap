@@ -1,0 +1,56 @@
+#if ARCHIPELAGO // only enable this mod in the archipelago build of the game
+
+global string Address
+global string SlotName
+global string Password
+global s64 NextConnectAttempt;
+global s64 FramesPassed;
+
+include specialstages
+include helpers
+include actselect_ap
+
+function void Init()
+{
+	base.Init()
+	debug_mode.enabled = 1
+}
+
+function void APUpdate()
+{
+	FramesPassed++
+	if (FramesPassed >= NextConnectAttempt && !Archipelago.isConnected())
+	{
+		if (Archipelago.startConnection()) // returns false if connection process already began
+		{
+			System.writeDisplayLine("Connecting to Archipelago...")
+		}
+		
+		NextConnectAttempt = FramesPassed + 600
+	}
+}
+
+function void ConnectionUpdate()
+{
+
+}
+
+function void MainMenuBG.Update(u16 cameraForegroundX, u16 cameraBackgroundX)
+{
+	base.MainMenuBG.Update(cameraForegroundX, cameraBackgroundX)
+	APUpdate()
+}
+
+function void UpdateGameObjects()
+{
+	base.UpdateGameObjects()
+	APUpdate()
+}
+
+function void TitleScreen()
+{
+	base.TitleScreen()
+	APUpdate()
+}
+
+#endif // ARCHIPELAGO

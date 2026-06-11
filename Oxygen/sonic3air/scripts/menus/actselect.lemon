@@ -271,7 +271,7 @@ function void ActSelect.Menu(u8 fadeInMethod)
 		{
 			u16[0xfffffc00 + i * 2] = blendColorsPacked(u16[0xfffffc00 + i * 2], 0x0eee, 0x80)
 		}
-
+		
 		copyMemory(0xfffffc80, 0xfffffc00, 0x20)
 		for (u32 i = 0; i < 0x20; ++i)
 		{

@@ -63,7 +63,7 @@ void ArchipelagoClient::updateConnection(float timeElapsed)
 	mConnecting = (state > APClient::State::DISCONNECTED && state < APClient::State::SLOT_CONNECTED);
 }
 
-void ArchipelagoClient::sendLocation(uint32 id)
+void ArchipelagoClient::sendLocation(uint64 id)
 {
 	std::list<int64_t> idList;
 	idList.push_front(id);

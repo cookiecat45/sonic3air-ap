@@ -1,0 +1,12 @@
+{
+	"Metadata":
+	{
+		"Name": "Archipelago",
+		"UniqueID": "archipelago-mod",
+		"Author": "CookieCat",
+		"Description": "Adds Archipelago support to Sonic 3 A.I.R.",
+		"URL": "",
+		"ModVersion": "0.1",
+		"GameVersion": "20.07.18.0"
+	},
+}
