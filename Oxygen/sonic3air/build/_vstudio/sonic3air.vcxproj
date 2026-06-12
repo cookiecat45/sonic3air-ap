@@ -245,18 +245,19 @@ exit /b 0</Command>
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../source;../../source/external;../../../lemonscript/source;../../../oxygenengine/source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DEBUG;MAXPATHLEN=256;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../source;../../source/external;../../../lemonscript/source;../../../oxygenengine/source;../../source/sonic3air/client/archipelago/json/include;../../source/sonic3air/client/archipelago/wswrap/include;../../source/sonic3air/client/archipelago/asio/include;../../source/sonic3air/client/archipelago/openssl/include;../../source/sonic3air/client/archipelago/websocketpp;../../source/sonic3air/client/archipelago/websocketpp/websocketpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEBUG;MAXPATHLEN=256;_CRT_SECURE_NO_WARNINGS;AP_NO_SCHEMA;_WEBSOCKETPP_CPP11_RANDOM_DEVICE_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>sonic3air/pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../../../lemonscript/lib/$(BuildCode);../../../oxygenengine/build/_vstudio/lib/$(Configuration)_$(BuildCode);$(SolutionDir)lib/$(Configuration)_$(BuildCode);$(SolutionDir)../../source/external/discord_game_sdk/lib/x86_64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>lemonscript.lib;oxygen_netcore.lib;oxygen.lib;imgui.lib;discord_game_sdk.lib;discord_game_sdk.dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lemonscript.lib;oxygen_netcore.lib;oxygen.lib;imgui.lib;discord_game_sdk.lib;discord_game_sdk.dll.lib;libcrypto_*.lib;libssl_*.lib;libz.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -304,8 +305,8 @@ exit /b 0</Command>
       <WarningLevel>Level3</WarningLevel>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../source;../../source/external;../../../lemonscript/source;../../../oxygenengine/source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>MAXPATHLEN=256;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../source;../../source/external;../../../lemonscript/source;../../../oxygenengine/source;../../source/sonic3air/client/archipelago/asio/include;../../source/sonic3air/client/archipelago/websocketpp;../../source/sonic3air/client/archipelago/wswrap/include;../../source/sonic3air/client/archipelago/json/include;../../source/sonic3air/client/archipelago/openssl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MAXPATHLEN=256;_CRT_SECURE_NO_WARNINGS;AP_NO_SCHEMA;_WIN32_WINNT=0x0600;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>sonic3air/pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -313,11 +314,12 @@ exit /b 0</Command>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../../lemonscript/lib/$(BuildCode);../../../oxygenengine/build/_vstudio/lib/$(Configuration)_$(BuildCode);$(SolutionDir)lib/$(Configuration)_$(BuildCode);$(SolutionDir)../../source/external/discord_game_sdk/lib/x86_64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../../lemonscript/lib/$(BuildCode);../../../oxygenengine/build/_vstudio/lib/$(Configuration)_$(BuildCode);$(SolutionDir)lib/$(Configuration)_$(BuildCode);$(SolutionDir)../../source/external/discord_game_sdk/lib/x86_64;libcrypto_*.lib;libssl_*.lib;libz.lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>lemonscript.lib;oxygen_netcore.lib;oxygen.lib;imgui.lib;discord_game_sdk.lib;discord_game_sdk.dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreBuildEvent>
       <Command>

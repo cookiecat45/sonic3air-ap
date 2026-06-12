@@ -10,6 +10,9 @@
 
 #include <rmxbase.h>
 
+#ifdef VOID
+#undef VOID
+#endif
 
 namespace lemon
 {
