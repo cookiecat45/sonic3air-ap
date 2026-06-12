@@ -15,11 +15,19 @@
 #include "oxygen/simulation/CodeExec.h"
 #include "oxygen/simulation/LogDisplay.h"
 #include "oxygen/simulation/Simulation.h"
+#include <imgui.h>
+#include <imgui_stdlib.h>
 
 using json = nlohmann::json;
+static char serverAddress[512] = "localhost:38281";
+static char slotName[512] = "";
+static char password[512] = "";
+static std::string errorMessage = "";
 
 bool ArchipelagoClient::startConnection()
 {
+	return false;
+	/*
 	if (mConnecting || isConnected())
 	{
 		return false;
@@ -31,15 +39,18 @@ bool ArchipelagoClient::startConnection()
 	mClient.reset(new APClient("", "Sonic 3 A.I.R.", "localhost:38281"));
 	setupHandlers();
 	return true;
+	*/
 }
 
 void ArchipelagoClient::setupHandlers()
 {
 	mClient->set_room_info_handler([this](){
-        mClient->ConnectSlot("Player1", "", 7);
+        mClient->ConnectSlot(slotName, password, 7);
     });
 	mClient->set_slot_connected_handler([this](const json&){
-        
+        CodeExec& codeExec = Application::instance().getSimulation().getCodeExec();
+		codeExec.mForceDisableExec = false;
+		mConnecting = false;
     });
 }
 
@@ -55,9 +66,53 @@ bool ArchipelagoClient::isConnected()
 
 void ArchipelagoClient::updateConnection(float timeElapsed)
 {
-	if (!mClient)
+	CodeExec& codeExec = Application::instance().getSimulation().getCodeExec();
+	if (!mClient || codeExec.mForceDisableExec)
+	{
+		ImGui::Begin("Connection Input");
+		codeExec.mForceDisableExec = true;
+		ImGui::InputText("Server address", serverAddress, sizeof(serverAddress), ImGuiInputTextFlags_CharsNoBlank);
+		ImGui::InputText("Slot name", slotName, sizeof(slotName));
+		ImGui::InputText("Password", password, sizeof(password));
+		bool connectClicked = ImGui::Button(mConnecting ? "Connecting..." : "Connect");
+		if (connectClicked && !mConnecting)
+		{
+			if (std::strlen(serverAddress) <= 0)
+			{
+				errorMessage = "Please enter a server address";
+				ImGui::OpenPopup("Input Error");
+			}
+			else if (std::strlen(slotName) <= 0)
+			{
+				errorMessage = "Please enter a slot name";
+				ImGui::OpenPopup("Input Error");
+			}
+			else
+			{
+				mConnecting = true;
+				mClient.reset();
+				printf("Connecting to AP...\n");
+				mClient.reset(new APClient("", "Sonic 3 A.I.R.", serverAddress));
+				setupHandlers();
+			}
+		}
+		
+		if (ImGui::BeginPopupModal("Input Error", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) 
+		{
+			ImGui::Text("%s", errorMessage.c_str());
+			ImGui::Separator();
+			if (ImGui::Button("OK", ImVec2(120, 0)) || ImGui::IsKeyPressed(ImGuiKey_Enter)) 
+			{
+				ImGui::CloseCurrentPopup();
+			}
+			
+			ImGui::EndPopup();
+		}
+		
+		ImGui::End();
 		return;
-
+	}
+	
 	mClient->poll();
 	APClient::State state = mClient->get_state();
 	mConnecting = (state > APClient::State::DISCONNECTED && state < APClient::State::SLOT_CONNECTED);

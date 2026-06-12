@@ -26,4 +26,5 @@ private:
 
 public:
 	std::unique_ptr<APClient> mClient;
+	bool waitingForInput;
 };

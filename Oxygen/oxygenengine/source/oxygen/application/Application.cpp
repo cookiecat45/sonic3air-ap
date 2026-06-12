@@ -525,12 +525,15 @@ void Application::update(float timeElapsed)
 
 	// Update engine server client and netplay
 	EngineServerClient::instance().updateClient(timeElapsed);
-
+	
 	// Update drawer
 	EngineMain::instance().getDrawer().updateDrawer(timeElapsed);
-
-	// Update input
-	InputManager::instance().updateInput(timeElapsed);
+	
+	if (!mSimulation->isFrozen())
+	{
+		// Update input
+		InputManager::instance().updateInput(timeElapsed);
+	}
 
 	if (mPausedByFocusLoss)
 	{
@@ -542,7 +545,7 @@ void Application::update(float timeElapsed)
 		// Skip the rest
 		return;
 	}
-
+	
 	// Update simulation
 	Profiling::pushRegion(ProfilingRegion::SIMULATION);
 	mSimulation->update(timeElapsed);

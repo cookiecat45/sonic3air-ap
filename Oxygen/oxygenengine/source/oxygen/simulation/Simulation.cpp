@@ -636,3 +636,8 @@ void Simulation::applyModSettingsToGlobals()
 		}
 	}
 }
+
+bool Simulation::isFrozen()
+{
+	return mCodeExec.mForceDisableExec;
+}

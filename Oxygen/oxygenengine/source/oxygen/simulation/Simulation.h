@@ -53,6 +53,7 @@ public:
 	void saveState(const std::wstring& filename);
 
 	bool triggerFullScriptsReload();
+	bool isFrozen();
 
 	inline uint32 getFrameNumber() const  { return mFrameNumber; }
 

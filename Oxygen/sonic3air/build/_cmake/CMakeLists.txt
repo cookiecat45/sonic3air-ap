@@ -116,6 +116,8 @@ include_directories(build/zlib)		# Needed for zconf.h
 include_directories(${WORKSPACE_DIR}/framework/external/zlib/zlib/contrib/minizip)
 if (USE_IMGUI)
 	include_directories(${WORKSPACE_DIR}/framework/external/imgui/imgui)
+	include_directories(${WORKSPACE_DIR}/framework/external/imgui/imgui)
+	include_directories(${WORKSPACE_DIR}/framework/external/imgui/imgui/misc/cpp)
 endif()
 include_directories(${WORKSPACE_DIR}/librmx/source)
 include_directories(${WORKSPACE_DIR}/librmx/source/rmxmedia/_glew)
