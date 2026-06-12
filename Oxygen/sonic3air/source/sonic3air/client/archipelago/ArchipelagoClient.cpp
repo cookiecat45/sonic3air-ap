@@ -23,6 +23,7 @@ static char serverAddress[512] = "localhost:38281";
 static char slotName[512] = "";
 static char password[512] = "";
 static std::string errorMessage = "";
+static std::string socketError = "";
 
 bool ArchipelagoClient::startConnection()
 {
@@ -51,7 +52,14 @@ void ArchipelagoClient::setupHandlers()
         CodeExec& codeExec = Application::instance().getSimulation().getCodeExec();
 		codeExec.mForceDisableExec = false;
 		mConnecting = false;
+		socketError = "";
     });
+	mClient->set_socket_error_handler([this](const std::string& msg) {
+		socketError = msg;
+	});
+	mClient->set_slot_refused_handler([this](const std::list<std::string>& msg) {
+		socketError = "Rejected by Archipelago server.\nMost likely an incorrect slot name, password, or port";
+	});
 }
 
 void ArchipelagoClient::stopConnection()
@@ -80,24 +88,43 @@ void ArchipelagoClient::updateConnection(float timeElapsed)
 			if (std::strlen(serverAddress) <= 0)
 			{
 				errorMessage = "Please enter a server address";
-				ImGui::OpenPopup("Input Error");
+				ImGui::OpenPopup("Error");
 			}
 			else if (std::strlen(slotName) <= 0)
 			{
 				errorMessage = "Please enter a slot name";
-				ImGui::OpenPopup("Input Error");
+				ImGui::OpenPopup("Error");
 			}
 			else
 			{
 				mConnecting = true;
+				mLastConnect = now();
 				mClient.reset();
 				printf("Connecting to AP...\n");
 				mClient.reset(new APClient("", "Sonic 3 A.I.R.", serverAddress));
 				setupHandlers();
 			}
 		}
+		else if (mConnecting && mClient)
+		{
+			mClient->poll();
+			bool timeOut = static_cast<unsigned long>(now() - mLastConnect) > 11000;
+			if (timeOut)
+			{
+				socketError = "Connection timed out";
+			}
+			
+			if (socketError.length() > 0)
+			{
+				mConnecting = false;
+				mClient.reset();
+				errorMessage = "Connection failed: " + socketError;
+				socketError = "";
+				ImGui::OpenPopup("Error");
+			}
+		}
 		
-		if (ImGui::BeginPopupModal("Input Error", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) 
+		if (ImGui::BeginPopupModal("Error", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) 
 		{
 			ImGui::Text("%s", errorMessage.c_str());
 			ImGui::Separator();
