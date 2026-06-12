@@ -110,7 +110,7 @@ public:
 
 	bool performFrameUpdate();
 	void yieldExecution();
-	bool mForceDisableExec;
+	bool mDisableInput;
 
 	bool executeScriptFunction(const std::string& functionName, bool showErrorOnFail, FunctionExecData* execData = nullptr);
 

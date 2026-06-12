@@ -595,11 +595,6 @@ void CodeExec::processCallFrames()
 
 bool CodeExec::canExecute() const
 {
-	if (mForceDisableExec)
-	{
-		return false;
-	}
-	
 	switch (mExecutionState)
 	{
 		case ExecutionState::READY:

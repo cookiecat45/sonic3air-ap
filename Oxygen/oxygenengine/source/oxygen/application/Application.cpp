@@ -529,7 +529,7 @@ void Application::update(float timeElapsed)
 	// Update drawer
 	EngineMain::instance().getDrawer().updateDrawer(timeElapsed);
 	
-	if (!mSimulation->isFrozen())
+	if (!mSimulation->isInputFrozen())
 	{
 		// Update input
 		InputManager::instance().updateInput(timeElapsed);

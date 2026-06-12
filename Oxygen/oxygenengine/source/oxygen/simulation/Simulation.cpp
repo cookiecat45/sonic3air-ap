@@ -637,7 +637,7 @@ void Simulation::applyModSettingsToGlobals()
 	}
 }
 
-bool Simulation::isFrozen()
+bool Simulation::isInputFrozen()
 {
-	return mCodeExec.mForceDisableExec;
+	return mCodeExec.mDisableInput;
 }

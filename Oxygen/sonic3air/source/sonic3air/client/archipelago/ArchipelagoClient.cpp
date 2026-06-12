@@ -50,7 +50,7 @@ void ArchipelagoClient::setupHandlers()
     });
 	mClient->set_slot_connected_handler([this](const json&){
         CodeExec& codeExec = Application::instance().getSimulation().getCodeExec();
-		codeExec.mForceDisableExec = false;
+		codeExec.mDisableInput = false;
 		mConnecting = false;
 		socketError = "";
     });
@@ -75,10 +75,10 @@ bool ArchipelagoClient::isConnected()
 void ArchipelagoClient::updateConnection(float timeElapsed)
 {
 	CodeExec& codeExec = Application::instance().getSimulation().getCodeExec();
-	if (!mClient || codeExec.mForceDisableExec)
+	if (!mClient || codeExec.mDisableInput)
 	{
 		ImGui::Begin("Connection Input");
-		codeExec.mForceDisableExec = true;
+		codeExec.mDisableInput = true;
 		ImGui::InputText("Server address", serverAddress, sizeof(serverAddress), ImGuiInputTextFlags_CharsNoBlank);
 		ImGui::InputText("Slot name", slotName, sizeof(slotName));
 		ImGui::InputText("Password", password, sizeof(password));
