@@ -189,7 +189,10 @@ void Application::sdlEvent(const SDL_Event& ev)
 	// Inform input manager as well
 	if (ev.type == SDL_KEYDOWN || ev.type == SDL_KEYUP)		// TODO: Also add joystick events?
 	{
-		InputManager::instance().injectSDLInputEvent(ev);
+		if (!mSimulation->isInputFrozen())
+		{
+			InputManager::instance().injectSDLInputEvent(ev);
+		}
 	}
 
 	// Handle events that FTX doesn't

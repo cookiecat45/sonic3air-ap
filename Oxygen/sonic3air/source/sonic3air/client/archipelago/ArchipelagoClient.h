@@ -20,6 +20,7 @@ public:
 	bool isConnected();
 	void updateConnection(float timeElapsed);
 	void sendLocation(uint64 id);
+	void callScriptFunction(lemon::FlyweightString functionName);
 
 private:
 	bool mConnecting = false;

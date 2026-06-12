@@ -15,9 +15,14 @@ function void APUpdate()
 	
 }
 
-function void ConnectionUpdate()
+function void Archipelago.OnConnected()
 {
+	System.writeDisplayLine("Connected to Archipelago!")
+}
 
+function void Archipelago.OnDisconnected()
+{
+	System.writeDisplayLine("Lost connection to Archipelago server")
 }
 
 function void MainMenuBG.Update(u16 cameraForegroundX, u16 cameraBackgroundX)

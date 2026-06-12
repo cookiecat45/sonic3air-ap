@@ -13,8 +13,8 @@
 #include "oxygen/application/Application.h"
 #include "oxygen/helper/JsonHelper.h"
 #include "oxygen/simulation/Simulation.h"
+#include "oxygen/simulation/CodeExec.h"
 #include "oxygen/simulation/LogDisplay.h"
-#include "oxygen/simulation/Simulation.h"
 #include <imgui.h>
 #include <imgui_stdlib.h>
 
@@ -53,13 +53,23 @@ void ArchipelagoClient::setupHandlers()
 		sim.mDisableInput = false;
 		mConnecting = false;
 		socketError = "";
+		ArchipelagoClient::callScriptFunction("Archipelago.OnConnected");
     });
 	mClient->set_socket_error_handler([this](const std::string& msg) {
-		socketError = msg;
+		if (msg != "TLS handshake failed") // don't immediately fail if this is the case - this always happens on localhost
+		{
+			socketError = msg;
+		}
 	});
 	mClient->set_slot_refused_handler([this](const std::list<std::string>& msg) {
 		socketError = "Rejected by Archipelago server.\nMost likely an incorrect slot name, password, or port";
 	});
+	mClient->set_socket_disconnected_handler([this](){
+        if (!mConnecting)
+		{
+			ArchipelagoClient::callScriptFunction("Archipelago.OnDisconnected");
+		}
+    });
 }
 
 void ArchipelagoClient::stopConnection()
@@ -77,8 +87,8 @@ void ArchipelagoClient::updateConnection(float timeElapsed)
 	Simulation& sim = Application::instance().getSimulation();
 	if (!mClient || sim.mDisableInput)
 	{
-		ImGui::Begin("Connection Input");
 		sim.mDisableInput = true;
+		ImGui::Begin("Connection Input");
 		ImGui::InputText("Server address", serverAddress, sizeof(serverAddress), ImGuiInputTextFlags_CharsNoBlank);
 		ImGui::InputText("Slot name", slotName, sizeof(slotName));
 		ImGui::InputText("Password", password, sizeof(password));
@@ -143,6 +153,11 @@ void ArchipelagoClient::updateConnection(float timeElapsed)
 	mClient->poll();
 	APClient::State state = mClient->get_state();
 	mConnecting = (state > APClient::State::DISCONNECTED && state < APClient::State::SLOT_CONNECTED);
+}
+
+void ArchipelagoClient::callScriptFunction(lemon::FlyweightString functionName)
+{
+	Application::instance().getSimulation().getCodeExec().getLemonScriptRuntime().callFunctionByName(functionName);
 }
 
 void ArchipelagoClient::sendLocation(uint64 id)
