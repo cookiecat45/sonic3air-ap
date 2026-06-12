@@ -12,7 +12,7 @@
 #include "sonic3air/client/archipelago/ArchipelagoClient.h"
 #include "oxygen/application/Application.h"
 #include "oxygen/helper/JsonHelper.h"
-#include "oxygen/simulation/CodeExec.h"
+#include "oxygen/simulation/Simulation.h"
 #include "oxygen/simulation/LogDisplay.h"
 #include "oxygen/simulation/Simulation.h"
 #include <imgui.h>
@@ -49,8 +49,8 @@ void ArchipelagoClient::setupHandlers()
         mClient->ConnectSlot(slotName, password, 7);
     });
 	mClient->set_slot_connected_handler([this](const json&){
-        CodeExec& codeExec = Application::instance().getSimulation().getCodeExec();
-		codeExec.mDisableInput = false;
+        Simulation& sim = Application::instance().getSimulation();
+		sim.mDisableInput = false;
 		mConnecting = false;
 		socketError = "";
     });
@@ -74,11 +74,11 @@ bool ArchipelagoClient::isConnected()
 
 void ArchipelagoClient::updateConnection(float timeElapsed)
 {
-	CodeExec& codeExec = Application::instance().getSimulation().getCodeExec();
-	if (!mClient || codeExec.mDisableInput)
+	Simulation& sim = Application::instance().getSimulation();
+	if (!mClient || sim.mDisableInput)
 	{
 		ImGui::Begin("Connection Input");
-		codeExec.mDisableInput = true;
+		sim.mDisableInput = true;
 		ImGui::InputText("Server address", serverAddress, sizeof(serverAddress), ImGuiInputTextFlags_CharsNoBlank);
 		ImGui::InputText("Slot name", slotName, sizeof(slotName));
 		ImGui::InputText("Password", password, sizeof(password));

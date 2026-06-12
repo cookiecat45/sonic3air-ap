@@ -54,6 +54,7 @@ public:
 
 	bool triggerFullScriptsReload();
 	bool isInputFrozen();
+	bool mDisableInput;
 
 	inline uint32 getFrameNumber() const  { return mFrameNumber; }
 
