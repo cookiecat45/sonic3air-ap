@@ -62,8 +62,11 @@ void ArchipelagoClient::setupHandlers()
 			socketError = msg;
 		}
 	});
-	mClient->set_slot_refused_handler([this](const std::list<std::string>& msg) {
-		socketError = "Rejected by Archipelago server.\nMost likely an incorrect slot name, password, or port";
+	mClient->set_slot_refused_handler([this](const std::list<std::string>& msgs) {
+		socketError = "Rejected by Archipelago server -";
+		for (const auto& element : msgs) {
+			socketError += " " + element;
+		}
 	});
 	mClient->set_socket_disconnected_handler([this](){
         if (!mConnecting)
