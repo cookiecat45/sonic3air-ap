@@ -88,10 +88,7 @@ void ArchipelagoClient::updateConnection(float timeElapsed)
 	Simulation& sim = Application::instance().getSimulation();
 	if (!mClient || sim.mDisableInput)
 	{
-		if (!ImGui::GetCurrentContext())
-			return;
-
-		//sim.mDisableInput = true;
+		sim.mDisableInput = true;
 		ImGui::Begin("Connection Input");
 		ImGui::InputText("Server address", serverAddress, sizeof(serverAddress), ImGuiInputTextFlags_CharsNoBlank);
 		ImGui::InputText("Slot name", slotName, sizeof(slotName));
