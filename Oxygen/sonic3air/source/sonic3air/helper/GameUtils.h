@@ -9,9 +9,9 @@
 #pragma once
 
 #include <rmxbase.h>
+#undef TRANSPARENT
 
 class EmulatorInterface;
-
 
 namespace s3air
 {

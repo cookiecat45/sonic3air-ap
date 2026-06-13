@@ -18,6 +18,7 @@
 #include "lemon/runtime/OpcodeExecUtils.h"
 #include "lemon/runtime/Runtime.h"
 
+#undef VOID
 
 namespace lemon
 {

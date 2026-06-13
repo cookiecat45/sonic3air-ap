@@ -10,7 +10,7 @@
 
 #include "oxygen/rendering/parts/RenderItem.h"
 #include <optional>
-
+#undef TRANSPARENT
 
 class PatternManager;
 

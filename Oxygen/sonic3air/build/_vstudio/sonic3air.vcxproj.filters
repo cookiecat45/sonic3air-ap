@@ -55,6 +55,9 @@
     <Filter Include="platform">
       <UniqueIdentifier>{7ed429b9-6806-433a-a179-c95cf6a583e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="client\archipelago">
+      <UniqueIdentifier>{7e46f928-f63b-4604-ac30-3c2cfb2aacdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\sonic3air\menu\GameApp.cpp">
@@ -199,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\sonic3air\menu\mods\ModsStartPage.cpp">
       <Filter>menu\mods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\sonic3air\client\archipelago\ArchipelagoClient.cpp">
+      <Filter>client\archipelago</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -350,6 +356,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\sonic3air\menu\mods\ModsStartPage.h">
       <Filter>menu\mods</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\sonic3air\client\archipelago\ArchipelagoClient.h">
+      <Filter>client\archipelago</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

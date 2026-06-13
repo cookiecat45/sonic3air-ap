@@ -6,7 +6,9 @@
 *	or https://www.gnu.org/licenses/gpl-3.0.en.html
 */
 
+#ifdef PLATFORM_LINUX
 #include <sys/socket.h>
+#endif
 #include <nlohmann/json.hpp>
 #include "sonic3air/pch.h"
 #include "sonic3air/client/archipelago/ArchipelagoClient.h"
@@ -16,7 +18,6 @@
 #include "oxygen/simulation/CodeExec.h"
 #include "oxygen/simulation/LogDisplay.h"
 #include <imgui.h>
-#include <imgui_stdlib.h>
 
 using json = nlohmann::json;
 static char serverAddress[512] = "localhost:38281";
@@ -87,7 +88,10 @@ void ArchipelagoClient::updateConnection(float timeElapsed)
 	Simulation& sim = Application::instance().getSimulation();
 	if (!mClient || sim.mDisableInput)
 	{
-		sim.mDisableInput = true;
+		if (!ImGui::GetCurrentContext())
+			return;
+
+		//sim.mDisableInput = true;
 		ImGui::Begin("Connection Input");
 		ImGui::InputText("Server address", serverAddress, sizeof(serverAddress), ImGuiInputTextFlags_CharsNoBlank);
 		ImGui::InputText("Slot name", slotName, sizeof(slotName));

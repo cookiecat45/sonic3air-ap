@@ -35,6 +35,7 @@
 #include "oxygen/simulation/EmulatorInterface.h"
 #include "oxygen/simulation/Simulation.h"
 
+#undef OPAQUE
 
 namespace
 {

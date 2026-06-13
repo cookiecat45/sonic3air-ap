@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\source\sonic3air\audio\AudioOut.cpp" />
     <ClCompile Include="..\..\source\sonic3air\audio\CustomAudioMixer.cpp" />
     <ClCompile Include="..\..\source\sonic3air\audio\RemasteredMusicDownload.cpp" />
+    <ClCompile Include="..\..\source\sonic3air\client\archipelago\ArchipelagoClient.cpp" />
     <ClCompile Include="..\..\source\sonic3air\client\crowdcontrol\CrowdControlClient.cpp" />
     <ClCompile Include="..\..\source\sonic3air\client\GameClient.cpp" />
     <ClCompile Include="..\..\source\sonic3air\client\GhostSync.cpp" />
@@ -77,6 +78,7 @@
     <ClInclude Include="..\..\source\sonic3air\audio\AudioOut.h" />
     <ClInclude Include="..\..\source\sonic3air\audio\CustomAudioMixer.h" />
     <ClInclude Include="..\..\source\sonic3air\audio\RemasteredMusicDownload.h" />
+    <ClInclude Include="..\..\source\sonic3air\client\archipelago\ArchipelagoClient.h" />
     <ClInclude Include="..\..\source\sonic3air\client\crowdcontrol\CrowdControlClient.h" />
     <ClInclude Include="..\..\source\sonic3air\client\GameClient.h" />
     <ClInclude Include="..\..\source\sonic3air\client\GhostSync.h" />
@@ -304,17 +306,18 @@ exit /b 0</Command>
       <WarningLevel>Level3</WarningLevel>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../source;../../source/external;../../../lemonscript/source;../../../oxygenengine/source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>MAXPATHLEN=256;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../source/sonic3air/client/archipelago/asio/include;../../source/sonic3air/client/archipelago/websocketpp;../../source/sonic3air/client/archipelago/wswrap/include;../../source/sonic3air/client/archipelago/json/include;../../source/sonic3air/client/archipelago/openssl/include;../../source;../../source/external;../../../lemonscript/source;../../../oxygenengine/source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MAXPATHLEN=256;_CRT_SECURE_NO_WARNINGS;AP_NO_SCHEMA;_WIN32_WINNT=0x0600;ASIO_STANDALONE;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>sonic3air/pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../../../lemonscript/lib/$(BuildCode);../../../oxygenengine/build/_vstudio/lib/$(Configuration)_$(BuildCode);$(SolutionDir)lib/$(Configuration)_$(BuildCode);$(SolutionDir)../../source/external/discord_game_sdk/lib/x86_64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>lemonscript.lib;oxygen_netcore.lib;oxygen.lib;imgui.lib;discord_game_sdk.lib;discord_game_sdk.dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lemonscript.lib;oxygen_netcore.lib;oxygen.lib;imgui.lib;discord_game_sdk.lib;discord_game_sdk.dll.lib;libcrypto.lib;libssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>

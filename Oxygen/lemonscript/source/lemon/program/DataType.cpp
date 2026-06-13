@@ -9,6 +9,7 @@
 #include "lemon/pch.h"
 #include "lemon/program/DataType.h"
 
+#undef VOID
 
 namespace lemon
 {

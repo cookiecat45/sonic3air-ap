@@ -7,7 +7,7 @@
 */
 
 #include "rmxbase.h"
-
+#undef TRANSPARENT
 
 const Color Color::BLACK  (0.0f, 0.0f, 0.0f);
 const Color Color::GRAY   (0.5f, 0.5f, 0.5f);

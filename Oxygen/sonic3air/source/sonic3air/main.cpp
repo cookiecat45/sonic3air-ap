@@ -112,7 +112,7 @@ int main(int argc, char** argv)
 	}
 	catch (const std::exception& e)
 	{
-		RMX_ERROR("Caught unhandled exception in main loop: " << e.what(), );
+		//RMX_ERROR("Caught unhandled exception in main loop: " << e.what());
 	}
 
 	return 0;

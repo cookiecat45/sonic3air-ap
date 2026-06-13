@@ -17,6 +17,7 @@
 #include "lemon/compiler/Utility.h"
 #include "lemon/program/Program.h"
 
+#undef VOID
 
 namespace lemon
 {

@@ -11,6 +11,7 @@
 #include "oxygen/helper/Transform2D.h"
 #include "oxygen/rendering/parts/SpacesManager.h"
 #include "oxygen/resources/SpriteCollection.h"
+#undef TRANSPARENT
 
 class PaletteBase;
 

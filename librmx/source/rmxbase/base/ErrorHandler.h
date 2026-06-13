@@ -11,6 +11,7 @@
 #include <sstream>
 #include <stdexcept> // for std::runtime_error
 #include <functional>
+#undef ERROR
 
 
 // Debug break (platform specific)

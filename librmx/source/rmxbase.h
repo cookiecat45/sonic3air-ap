@@ -10,6 +10,7 @@
 
 // Version number
 #define RMXBASE_VERSION 0x00040100
+#undef TRANSPARENT
 
 // General includes
 #include <cmath>

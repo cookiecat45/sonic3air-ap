@@ -13,6 +13,8 @@
 #include "oxygen/simulation/RuntimeEnvironment.h"
 #include "oxygen/simulation/debug/DebugTracking.h"
 
+#undef ERROR
+
 class EmulatorInterface;
 namespace lemon
 {

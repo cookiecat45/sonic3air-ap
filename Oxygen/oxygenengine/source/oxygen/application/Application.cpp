@@ -96,8 +96,8 @@ void Application::initialize()
 
 	mWindowMode = (WindowMode)Configuration::instance().mWindowMode;
 
-	if (EngineMain::getDelegate().useDeveloperFeatures())
-	{
+	//if (EngineMain::getDelegate().useDeveloperFeatures())
+	//{
 		RMX_LOG_INFO("Adding debug views");
 		mDebugSidePanel = &createChild<DebugSidePanel>();
 		createChild<MemoryHexView>();
@@ -106,7 +106,7 @@ void Application::initialize()
 	#if defined(SUPPORT_IMGUI)
 		ImGuiManager::instance().getOrAddImGuiContentProvider<DevModeMainWindow>(0);
 	#endif
-	}
+	//}
 
 	//mOxygenMenu = &mGameView->createChild<OxygenMenu>();
 	mProfilingView = &createChild<ProfilingView>();

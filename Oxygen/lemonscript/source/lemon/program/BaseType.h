@@ -9,7 +9,7 @@
 #pragma once
 
 #include <rmxbase.h>
-
+#undef VOID
 
 namespace lemon
 {

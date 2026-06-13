@@ -11,6 +11,7 @@
 #include <rmxbase.h>
 #include "oxygen/rendering/RenderingDefinitions.h"
 
+#undef OPAQUE
 
 class Blitter
 {
