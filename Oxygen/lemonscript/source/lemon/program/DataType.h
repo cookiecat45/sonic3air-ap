@@ -12,9 +12,6 @@
 #include "lemon/program/function/FunctionReference.h"
 #include "lemon/utility/FlyweightString.h"
 
-#ifdef VOID
-#undef VOID
-#endif
 
 namespace lemon
 {
