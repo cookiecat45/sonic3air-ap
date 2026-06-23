@@ -203,7 +203,7 @@
     <ClCompile Include="..\..\source\sonic3air\menu\mods\ModsStartPage.cpp">
       <Filter>menu\mods</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\sonic3air\client\archipelago\ArchipelagoClient.cpp">
+    <ClCompile Include="..\..\source\sonic3air\client\archipelago\Archipelago.cpp">
       <Filter>client\archipelago</Filter>
     </ClCompile>
   </ItemGroup>
@@ -357,7 +357,7 @@
     <ClInclude Include="..\..\source\sonic3air\menu\mods\ModsStartPage.h">
       <Filter>menu\mods</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\sonic3air\client\archipelago\ArchipelagoClient.h">
+    <ClInclude Include="..\..\source\sonic3air\client\archipelago\Archipelago.h">
       <Filter>client\archipelago</Filter>
     </ClInclude>
   </ItemGroup>

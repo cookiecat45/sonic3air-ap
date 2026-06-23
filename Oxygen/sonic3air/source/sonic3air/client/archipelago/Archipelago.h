@@ -11,10 +11,9 @@
 #include "sonic3air/client/archipelago/apclientpp/apclient.hpp"
 #include <lemon/program/StringRef.h>
 
-class ArchipelagoClient
+class Archipelago
 {
 public:
-	bool startConnection();
 	void setupHandlers();
 	void stopConnection();
 	bool isConnected();

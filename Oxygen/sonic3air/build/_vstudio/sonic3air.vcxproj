@@ -22,7 +22,7 @@
     <ClCompile Include="..\..\source\sonic3air\audio\AudioOut.cpp" />
     <ClCompile Include="..\..\source\sonic3air\audio\CustomAudioMixer.cpp" />
     <ClCompile Include="..\..\source\sonic3air\audio\RemasteredMusicDownload.cpp" />
-    <ClCompile Include="..\..\source\sonic3air\client\archipelago\ArchipelagoClient.cpp" />
+    <ClCompile Include="..\..\source\sonic3air\client\archipelago\Archipelago.cpp" />
     <ClCompile Include="..\..\source\sonic3air\client\crowdcontrol\CrowdControlClient.cpp" />
     <ClCompile Include="..\..\source\sonic3air\client\GameClient.cpp" />
     <ClCompile Include="..\..\source\sonic3air\client\GhostSync.cpp" />
@@ -78,7 +78,7 @@
     <ClInclude Include="..\..\source\sonic3air\audio\AudioOut.h" />
     <ClInclude Include="..\..\source\sonic3air\audio\CustomAudioMixer.h" />
     <ClInclude Include="..\..\source\sonic3air\audio\RemasteredMusicDownload.h" />
-    <ClInclude Include="..\..\source\sonic3air\client\archipelago\ArchipelagoClient.h" />
+    <ClInclude Include="..\..\source\sonic3air\client\archipelago\Archipelago.h" />
     <ClInclude Include="..\..\source\sonic3air\client\crowdcontrol\CrowdControlClient.h" />
     <ClInclude Include="..\..\source\sonic3air\client\GameClient.h" />
     <ClInclude Include="..\..\source\sonic3air\client\GhostSync.h" />

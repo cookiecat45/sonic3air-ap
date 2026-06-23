@@ -1,3 +1,50 @@
+u16 TotalSpheres = 0
+u16 TotalRings = 0
+
+// Game counts the number of blue spheres
+// Ring count is also initialized by this point
+//# address-hook(0x009ea0) end(0x009eba)
+function void fn009ea0()
+{
+	base.fn009ea0()
+	TotalSpheres = bluespheres.blue_remaining
+	TotalRings = bluespheres.rings_remaining
+}
+
+//# address-hook(0x009e88) end(0x009e9e)
+function void BlueSpheres.OnBlueSphereCollected()
+{
+	base.BlueSpheres.OnBlueSphereCollected()
+	float percent = abs(bluespheres.blue_remaining-TotalSpheres) / TotalSpheres
+	LogDec = percent
+	u64 id = 1 + (10 * GetSpecialStageId())
+	id += 2 * Math.floor(percent / 0.1)
+	Archipelago.sendLocation(id)
+}
+
+// Something was touched by the player
+//# address-hook(0x00972e) end(0x0098ae)
+function void fn00972e()
+{
+	base.fn00972e()
+	float percent = bluespheres.rings_collected / TotalRings
+	LogDec = percent
+	u64 id = 2 + (10 * GetSpecialStageId())
+	id += 2 * Math.floor(percent / 0.1)
+	Archipelago.sendLocation(id)
+}
+
+function u16 GetSpecialStageId()
+{
+	u16 stageId = global.next_bluespheres
+	if (global.sk_bluespheres)
+	{
+		stageId += 7
+	}
+	
+	return stageId
+}
+
 // Called when collecting a giant ring
 //# address-hook(0x0616e6) end(0x06178a)
 function void fn0616e6()

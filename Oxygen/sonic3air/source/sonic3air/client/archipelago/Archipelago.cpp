@@ -11,7 +11,7 @@
 #endif
 #include <nlohmann/json.hpp>
 #include "sonic3air/pch.h"
-#include "sonic3air/client/archipelago/ArchipelagoClient.h"
+#include "sonic3air/client/archipelago/Archipelago.h"
 #include "oxygen/application/Application.h"
 #include "oxygen/helper/JsonHelper.h"
 #include "oxygen/simulation/Simulation.h"
@@ -26,25 +26,7 @@ static char password[512] = "";
 static std::string errorMessage = "";
 static std::string socketError = "";
 
-bool ArchipelagoClient::startConnection()
-{
-	return false;
-	/*
-	if (mConnecting || isConnected())
-	{
-		return false;
-	}
-
-	mConnecting = true;
-	mClient.reset();
-	printf("Connecting to AP...\n");
-	mClient.reset(new APClient("", "Sonic 3 A.I.R.", "localhost:38281"));
-	setupHandlers();
-	return true;
-	*/
-}
-
-void ArchipelagoClient::setupHandlers()
+void Archipelago::setupHandlers()
 {
 	mClient->set_room_info_handler([this](){
         mClient->ConnectSlot(slotName, password, 7);
@@ -54,7 +36,7 @@ void ArchipelagoClient::setupHandlers()
 		sim.mDisableInput = false;
 		mConnecting = false;
 		socketError = "";
-		ArchipelagoClient::callScriptFunction("Archipelago.OnConnected");
+		Archipelago::callScriptFunction("Archipelago.OnConnected");
     });
 	mClient->set_socket_error_handler([this](const std::string& msg) {
 		if (msg != "TLS handshake failed") // don't immediately fail if this is the case - this always happens on localhost
@@ -71,22 +53,22 @@ void ArchipelagoClient::setupHandlers()
 	mClient->set_socket_disconnected_handler([this](){
         if (!mConnecting)
 		{
-			ArchipelagoClient::callScriptFunction("Archipelago.OnDisconnected");
+			Archipelago::callScriptFunction("Archipelago.OnDisconnected");
 		}
     });
 }
 
-void ArchipelagoClient::stopConnection()
+void Archipelago::stopConnection()
 {
 	mClient.reset();
 }
 
-bool ArchipelagoClient::isConnected()
+bool Archipelago::isConnected()
 {
 	return mClient && mClient->get_state() == APClient::State::SLOT_CONNECTED;
 }
 
-void ArchipelagoClient::updateConnection(float timeElapsed)
+void Archipelago::updateConnection(float timeElapsed)
 {
 	Simulation& sim = Application::instance().getSimulation();
 	if (!mClient || sim.mDisableInput)
@@ -159,12 +141,12 @@ void ArchipelagoClient::updateConnection(float timeElapsed)
 	mConnecting = (state > APClient::State::DISCONNECTED && state < APClient::State::SLOT_CONNECTED);
 }
 
-void ArchipelagoClient::callScriptFunction(lemon::FlyweightString functionName)
+void Archipelago::callScriptFunction(lemon::FlyweightString functionName)
 {
 	Application::instance().getSimulation().getCodeExec().getLemonScriptRuntime().callFunctionByName(functionName);
 }
 
-void ArchipelagoClient::sendLocation(uint64 id)
+void Archipelago::sendLocation(uint64 id)
 {
 	std::list<int64_t> idList;
 	idList.push_front(id);
